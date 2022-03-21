@@ -10,16 +10,16 @@ workflows:
               only:
                 - main
       - deploy:
-        filters:
-          branches:
-            only:
-              - main
-        requires:
-          - build       
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+            - build          
 
 jobs:
   build:
-    working_directory: ~/example_application
+    working_directory: ~/ExampleApplication
     docker:
       - image: circleci/node:10.16.3
     steps:
@@ -32,9 +32,6 @@ jobs:
       - run:
           name: install-npm-wee
           command: npm install
-      - run:
-          name: test-run
-          command: npm run test
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
